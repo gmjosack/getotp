@@ -9,3 +9,9 @@ Tool for retrieving TOTP tokens.
 ```bash
 pip install getotp
 ```
+
+### Usage
+```bash
+getotp add <name> <totp secret>
+getotp show <name>  # Returns TOTP token.
+```

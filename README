@@ -13,3 +13,11 @@ Installation
 
     pip install getotp
 
+Usage
+~~~~~
+
+::
+
+    getotp add <name> <totp secret>
+    getotp show <name>  # Returns TOTP token.
+
