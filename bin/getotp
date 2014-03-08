@@ -18,6 +18,11 @@ def edit_command(args, filename):
     secrets.edit(args.name, args.secret)
     secrets.save()
 
+def remove_command(args, filename):
+    secrets = getotp.Secrets.from_file(filename)
+    secrets.remove(args.name)
+    secrets.save()
+
 def show_command(args, filename):
     secrets = getotp.Secrets.from_file(filename)
     if not args.name:
@@ -50,6 +55,10 @@ def main():
     edit_parser.set_defaults(func=edit_command)
     edit_parser.add_argument("name")
     edit_parser.add_argument("secret")
+
+    remove_parser = subparsers.add_parser("remove", help="Remove an existing named secret.")
+    remove_parser.set_defaults(func=remove_command)
+    remove_parser.add_argument("name")
 
     show_parser = subparsers.add_parser("show", help="Edit an existing named secret.")
     show_parser.set_defaults(func=show_command)

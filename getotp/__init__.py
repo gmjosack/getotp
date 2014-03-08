@@ -37,6 +37,11 @@ class Secrets(object):
     def edit(self, name, secret):
         self._secrets[name] = secret
 
+    def remove(self, name):
+        if name not in self._secrets:
+            raise Error("No such secret (%s)" % name)
+        del self._secrets[name]
+
     def show_all(self):
         return self._secrets.keys()
 
