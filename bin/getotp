@@ -3,21 +3,32 @@
 import argparse
 import logging
 import sys
+import os
 
 import getotp
 
 
-def add_command(args):
-    print args.name
-    print args.secret
+def add_command(args, filename):
+    secrets = getotp.Secrets.from_file(filename)
+    secrets.add(args.name, args.secret)
+    secrets.save()
 
+def edit_command(args, filename):
+    secrets = getotp.Secrets.from_file(filename)
+    secrets.edit(args.name, args.secret)
+    secrets.save()
 
-def edit_command(args):
-    print args.name
-    print args.secret
+def show_command(args, filename):
+    secrets = getotp.Secrets.from_file(filename)
+    if not args.name:
+        out = secrets.show_all()
+        if not out:
+            print "No Secrets"
+        else:
+            print "\n".join(out)
+        return
 
-def show_command(args):
-    print args.name
+    print secrets.show(args.name)
 
 def main():
 
@@ -45,9 +56,10 @@ def main():
     show_parser.add_argument("name", nargs="?")
 
     args = parser.parse_args()
+    filename = os.path.join("~", ".getotp")
 
     try:
-        args.func(args)
+        args.func(args, filename)
     except getotp.Error, err:
         print err
         sys.exit(1)

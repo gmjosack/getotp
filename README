@@ -1,0 +1,15 @@
+getotp
+======
+
+Description
+~~~~~~~~~~~
+
+Tool for retrieving TOTP tokens.
+
+Installation
+~~~~~~~~~~~~
+
+::
+
+    pip install getotp
+
