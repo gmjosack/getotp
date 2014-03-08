@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+
+import argparse
+import logging
+import sys
+
+import getotp
+
+
+def add_command(args):
+    print args.name
+    print args.secret
+
+
+def edit_command(args):
+    print args.name
+    print args.secret
+
+def show_command(args):
+    print args.name
+
+def main():
+
+    description_msg = "Store secrets and retrieve TOTP tokens."
+    parser = argparse.ArgumentParser(description=description_msg)
+
+    parser.add_argument("-v", "--version", action="version",
+                        version="%%(prog)s %s" % getotp.__version__,
+                        help="Display version information.")
+
+    subparsers = parser.add_subparsers(dest="command")
+
+    add_parser = subparsers.add_parser("add", help="Add a new named secret.")
+    add_parser.set_defaults(func=add_command)
+    add_parser.add_argument("name")
+    add_parser.add_argument("secret")
+
+    edit_parser = subparsers.add_parser("edit", help="Edit an existing named secret.")
+    edit_parser.set_defaults(func=edit_command)
+    edit_parser.add_argument("name")
+    edit_parser.add_argument("secret")
+
+    show_parser = subparsers.add_parser("show", help="Edit an existing named secret.")
+    show_parser.set_defaults(func=show_command)
+    show_parser.add_argument("name", nargs="?")
+
+    args = parser.parse_args()
+
+    try:
+        args.func(args)
+    except getotp.Error, err:
+        print err
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    main()
