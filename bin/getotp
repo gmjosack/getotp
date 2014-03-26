@@ -33,7 +33,7 @@ def show_command(args, filename):
             print "\n".join(out)
         return
 
-    print secrets.show(args.name)
+    print "%06d" % secrets.show(args.name)
 
 def main():
 
