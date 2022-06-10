@@ -3,7 +3,7 @@ import json
 import onetimepass as otp
 import os
 
-from version import __version__
+from .version import __version__
 
 
 class Error(Exception):
@@ -43,7 +43,7 @@ class Secrets(object):
         del self._secrets[name]
 
     def show_all(self):
-        return self._secrets.keys()
+        return list(self._secrets.keys())
 
     def show(self, name):
         if name not in self._secrets:
