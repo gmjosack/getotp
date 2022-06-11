@@ -28,12 +28,12 @@ def show_command(args, filename):
     if not args.name:
         out = secrets.show_all()
         if not out:
-            print "No Secrets"
+            print("No Secrets")
         else:
-            print "\n".join(out)
+            print("\n".join(out))
         return
 
-    print "%06d" % secrets.show(args.name)
+    print("%06d" % secrets.show(args.name))
 
 def main():
 
@@ -69,8 +69,8 @@ def main():
 
     try:
         args.func(args, filename)
-    except getotp.Error, err:
-        print err
+    except getotp.Error as err:
+        print(err)
         sys.exit(1)
 
 

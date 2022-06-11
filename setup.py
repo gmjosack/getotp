@@ -3,7 +3,8 @@
 import setuptools
 from distutils.core import setup
 
-execfile('getotp/version.py')
+with open('getotp/version.py') as infile:
+    exec(infile.read())
 
 with open('requirements.txt') as requirements:
     required = requirements.read().splitlines()
